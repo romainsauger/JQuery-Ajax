@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Ajax with JQuery</title>
+</head>
+<body>
+	<ul id="results"></ul>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+	<script>
+		$(function(){
+
+			$.getJSON( "ajax/test.json", function( data ) {
+			 	var ul = $('ul#results');
+				ul.empty();
+
+				var items = [];
+        for (item in data) {
+        	items.push( "<li>" + data[item] + "</li>" );
+					var li = $('<li>').append(data[item]);
+					ul.append(li);
+        }
+			 
+			  // $( "<ul/>", {
+			  //   "class": "my-new-list",
+			  //   html: items.join( "" )
+			  // }).appendTo( "body" );
+
+
+			});
+
+		});	
+	</script>
+</body>
+</html>

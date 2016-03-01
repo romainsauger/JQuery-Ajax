@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Ajax with JQuery</title>
+</head>
+<body>
+	<div id="content"></div>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+	<script>
+		$(function(){
+
+			$.get( "ajax/test.html", function( data ) {
+			  $("#content").html( data );
+			});
+
+		});	
+	</script>
+</body>
+</html>

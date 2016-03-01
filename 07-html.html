@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Ajax with JQuery</title>
+</head>
+<body>
+	<div id="content"></div>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+	<script>
+		$(function(){
+
+			$.ajax({
+			  dataType: "html",
+			  url: "ajax/test.html",
+			  success: affiche
+			});
+
+			function affiche(data) {
+				var items = [];
+		    $(data).find("li").each(function(){
+		      var name = $(this).text();
+		      items.push( "<li>" + name + "</li>" );
+		    });
+			  
+			  $( "<ul/>", {
+			    "class": "my-new-list",
+			    html: items.join( "" )
+			  }).appendTo( "body" );
+			}
+
+		});	
+	</script>
+</body>
+</html>
