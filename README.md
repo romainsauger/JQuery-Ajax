@@ -2,4 +2,4 @@
 
 Fichiers de départ pour le TP
 
-key: AIzaSyAyLf-DYjrAoAeOTjE0FUpow7dA1yXqPO4
+key: AIzaSyA2vu3XX2FRk83WxwguRRW9DTw4Y-u_yis
