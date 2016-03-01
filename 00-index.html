@@ -5,11 +5,13 @@
 	<title>Ajax with JQuery</title>
 </head>
 <body>
-
+    <div id="content"></div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
 	<script>
 		$(function(){
-			
+			$('#content').load('ajax/test.html ul',function(){
+				
+			});
 		});	
 	</script>
 </body>
