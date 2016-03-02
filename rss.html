@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Ajax with JQuery</title>
+</head>
+<body>
+	<div id="content"></div>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+	<script>
+		$(function(){
+
+			// $.ajax({
+			//   dataType: "xml",
+			//   url: "http://rss.lemonde.fr/c/205/f/3050/index.rss",
+			//   success: affiche
+			// });
+
+
+      url = 'http://rss.lemonde.fr/c/205/f/3050/index.rss';
+      $.ajax({
+      	type: "GET",
+      	url: document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=1000&callback=?&q=' + encodeURIComponent(url),
+      	dataType: 'json',
+      	error: function(){
+          alert('Unable to load feed, Incorrect path or invalid feed');
+      	},
+      	success: function(xml){
+          data = xml.responseData.feed.entries;
+          console.log(data);		  
+      	}
+  		});
+			
+		});	
+	</script>
+</body>
+</html>

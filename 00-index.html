@@ -5,11 +5,33 @@
 	<title>Ajax with JQuery</title>
 </head>
 <body>
+  
   <div id="content"></div>
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
 	<script>
 		$(function(){
-			
+			$('#content').append('<ul>');
+
+			$.ajax({
+				dataType:'xml',
+				url:'ajax/test.xml',
+				success: afficher
+			});
+
+			function afficher(data){
+				console.log(data);
+				$(data).find('members').each(function(){
+					$(this).find('name').each(function(){
+						var texte = $(this).text();	
+						$('ul').append('<li>'+ texte +'</li>');
+					});
+				});
+				// for (item in data){
+				// 	$('ul').append('<li>'+ data[item] +'</li>');
+				// }
+			}
+
 		});	
 	</script>
 </body>
