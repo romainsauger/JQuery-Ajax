@@ -5,20 +5,23 @@
 	<title>Ajax with JQuery</title>
 </head>
 <body>
-	<div id="content"></div>
-	
+  
+  <div id="content">
+  	<div id="news">
+  		<div class="article">
+  			<h1><a href="#" class="lien"><span class="titre">Mon titre</span></a></h1>
+  			<p class="texte">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae vel amet, voluptatum aspernatur facilis veritatis velit dicta aliquam enim, magni fugit fuga! Aspernatur sequi, molestiae suscipit quo quod adipisci, dolorem.</p>
+  		</div>
+  	</div>
+  </div>
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
 	<script>
 		$(function(){
 
-			// $.ajax({
-			//   dataType: "xml",
-			//   url: "http://rss.lemonde.fr/c/205/f/3050/index.rss",
-			//   success: affiche
-			// });
-
-
+			$('#content').append('<ul>');
       url = 'http://rss.lemonde.fr/c/205/f/3050/index.rss';
+
       $.ajax({
       	type: "GET",
       	url: document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=1000&callback=?&q=' + encodeURIComponent(url),
@@ -28,10 +31,27 @@
       	},
       	success: function(xml){
           data = xml.responseData.feed.entries;
-          console.log(data);		  
+          console.log(data);		 
+
+          var template = $('#news').find('.article');
+          $('#news').empty();
+
+   				for (item in data){
+   					var titre = data[item].title;
+   					var contenuCourt = data[item].contentSnippet;
+   					var lien = data[item].link;
+
+   					var article = template.clone();
+   					article.find('.titre').html(titre);
+   					article.find('.texte').html(contenuCourt);
+   					article.find('.lien').attr('href',lien);
+
+   					$('#news').append(article);
+
+					}
       	}
   		});
-			
+
 		});	
 	</script>
 </body>

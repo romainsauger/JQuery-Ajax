@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Ajax with JQuery</title>
+</head>
+<body>
+  
+	<form action="#">
+		<input type="text" name="search">
+		<button>OK</button>
+	</form>
+
+  <div id="content">
+  	<div id="videos">
+  		<div class="video">
+  			<h1><a href="http://www.youtube.com/watch?v=0O2aH4XLbto" class="lien popup-youtube"><span class="titre">Mon titre</span></a></h1>
+  			<p class="texte">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae vel amet, voluptatum aspernatur facilis veritatis velit dicta aliquam enim, magni fugit fuga! Aspernatur sequi, molestiae suscipit quo quod adipisci, dolorem.</p>
+  			<img class="thumbnail" src="" >
+  		</div>
+  	</div>
+  </div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+	<script>
+		$(function(){
+
+			$('form').submit(function(e){
+				e.preventDefault();
+				var query = $('input[name="search"]').val();
+				$.ajax({
+	        method: 'GET',
+	        url:'https://www.googleapis.com/youtube/v3/search',
+	        data: { 
+	        	part: 'snippet',
+	        	q : query,
+	        	maxResults: 25,
+	        	key: 'AIzaSyAyLf-DYjrAoAeOTjE0FUpow7dA1yXqPO4'
+	        },
+	        dataType: 'jsonp',
+					success: afficher,
+					error:function(){
+						console.log('error');
+					}
+				});
+			});
+
+
+			
+
+			function afficher(data){
+				
+				var videos = data.items;
+				console.log(videos);
+
+			  var template = $('#videos').find('.video');
+        $('#videos').empty();
+
+ 				for (item in videos){
+
+
+ 					var titre = videos[item].snippet.title;
+ 					var contenuCourt = videos[item].snippet.description;
+					var thumbnail = videos[item].snippet.thumbnails.default.url;
+ 					var lien = 'http://youtu.be/'+ videos[item].id.videoId;
+
+ 					var article = template.clone();
+ 					article.find('.titre').html(titre);
+ 					article.find('.texte').html(contenuCourt);
+ 					article.find('.lien').attr('href',lien);
+ 					article.find('.thumbnail').attr('src',thumbnail);
+
+ 					$('#videos').append(article);
+
+				}
+
+			}
+
+
+
+
+		});	
+	</script>
+</body>
+</html>
